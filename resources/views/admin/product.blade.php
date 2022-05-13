@@ -79,10 +79,23 @@
                                                 <td>
                                                     <a href="/dashboard/produk/{{$pro['ID']}}" class="btn btn-info btn-sm text-white"><i class="fas fa-eye"></i> Lihat</a>
                                                     <a href="/dashboard/produk/{{$pro['ID']}}/edit" class="btn btn-warning btn-sm"><i class="far fa-edit"></i> Edit</a>
-                                                    <a class="btn btn-danger btn-sm text-white"><i class=" fas fa-trash"></i> Hapus</a>
+                                                    <form action="/dashboard/produk/{{$pro['ID']}}" method="post" >
+                                                        @method('delete')
+                                                        @csrf
+                                                        <button type="submit" class="btn btn-danger btn-sm text-white"><i class=" fas fa-trash"></i> Hapus</button>
+                                                    </form>
+
                                                 </td>
                                             </tr>
                                             @endforeach
+
+                                            {{-- <form action="/dashboard/beritas/{{$b->slug}}" method="post" >
+                                                @method('delete')
+                                                @csrf
+                                                <button type="submit" class="btn btn-primary">Hapus</button>
+                                            </form> --}}
+
+
                                         </tbody>
                                     </table>
                                 </div>

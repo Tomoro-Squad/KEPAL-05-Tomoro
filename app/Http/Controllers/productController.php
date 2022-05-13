@@ -180,6 +180,16 @@ class productController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $client = new Client();
+          $response = $client->request('delete',"http://localhost:9010/produk/$id");
+        //   $statusCode = $response->getStatusCode();
+        //   $body = $response->getBody()->getContents();
+  
+        //   $produk = json_decode($body, true);
+          // return $produk;
+          // return $data;
+  
+          // return view('admin.produk.lihat-produk',['produk' => $data]);
+          return redirect('/dashboard/produk');
     }
 }
