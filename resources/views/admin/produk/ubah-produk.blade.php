@@ -39,19 +39,18 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="card">
-                            <form class="form-horizontal" method="post" action="/dashboard/produk" enctype="multipart/form-data">
-
                                 <div class="card-body">
-                                    <h3 class="card-title">TAMBAH PRODUK</h3><br>
+                                    <h3 class="card-title">UBAH PRODUK</h3><br>
                                     <br><br>
 
-                                    <form enctype="multipart/form-data" method="post" action="/dashboard/produk" >
+                                    <form enctype="multipart/form-data" method="post" action="/dashboard/produk/{{$produk['ID']}}" >
                                         @csrf
+                                        @method('put')
                                     <div class="modal-body">
                                       <div class="form-group mt-3">
                                           <div class="">
                                               <label class="mx-4 w-25" >Nama Produk</label>
-                                              <input type="text" name="nama" class="form-control mx-3" placeholder="Nama produk disini" required>
+                                              <input type="text" name="nama" class="form-control mx-3" placeholder="Nama produk disini" value="{{$produk['nama']}}" required>
                                               @error('nama')
                                               <small class="text-danger container">
                                                  {{$message}}
@@ -63,7 +62,7 @@
                                       <div class="form-group mt-3">
                                           <div class="">
                                               <label class="mx-4 w-25" >Kategori</label>
-                                              <input type="text" name="kategori" class="form-control mx-3" placeholder="Kategori disini" required>
+                                              <input type="text" name="kategori" class="form-control mx-3" placeholder="Kategori disini" value="{{$produk['kategori']}}" required>
                                               @error('kategori')
                                               <small class="text-danger container">
                                                  {{$message}}
@@ -75,7 +74,7 @@
                                       <div class="form-group mt-3">
                                           <div class="">
                                               <label class="mx-4 w-25" >Harga</label>
-                                              <input type="number" name="harga" class="form-control mx-3" placeholder="Harga disini" required>
+                                              <input type="number" name="harga" class="form-control mx-3" placeholder="Harga disini" value="{{$produk['harga']}}" required>
                                               @error('harga')
                                               <small class="text-danger container">
                                                  {{$message}}
@@ -87,7 +86,7 @@
                                       <div class="form-group mt-3">
                                           <div class="">
                                               <label class="mx-4 w-25" >Jumlah</label>
-                                              <input type="number" name="jumlah" class="form-control mx-3" placeholder="Jumlah disini" required>
+                                              <input type="number" name="jumlah" class="form-control mx-3" placeholder="Jumlah disini" value="{{$produk['jumlah']}}" required>
                                               @error('jumlah')
                                               <small class="text-danger container">
                                                  {{$message}}
@@ -100,7 +99,7 @@
                                           <div class="">
                                               <label class="mx-4 w-25" >Deskripsi</label> 
                                               <div class="mx-3">
-                                                <input id="detail" type="hidden" name="detail" >
+                                                <input id="detail" type="hidden" name="detail" value="{{$produk['detail']}}">
                                                 <trix-editor input="detail" style="height: 200px;"></trix-editor>
                                                 @error('detail')
                                                 <small class="text-danger container">
@@ -113,8 +112,11 @@
                             
                                       <div class="form-group mt-3">
                                           <div class="">
-                                              <label class="mx-4 w-25" >Gambar</label><br>
-                                              <input type="file" name="gambar" class="custom-file-input mx-3">
+                                            <label class="mx-4 w-25" >Gambar</label><br>
+                                              <img src="/produk/{{$produk['gambar']}}" class="container" style="max-width: 200px;" alt="">
+                                              <br><br>
+                                              <input type="file" name="gambar" class="custom-file-input mx-3"><br>
+                                              <small class="container">*Gambar yang diupload akan menggantikan gambar saat ini</small>
                                               @error('gambar')
                                               <small class="text-danger container">
                                                 {{$message}}

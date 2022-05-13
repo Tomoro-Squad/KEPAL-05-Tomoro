@@ -16,13 +16,13 @@ class productController extends Controller
     public function index()
     {
         $client = new Client();
-        $response = $client->request('GET','http://localhost:9010/produk/');
+        $response = $client->request('GET','http://localhost:9010/produk');
         $statusCode = $response->getStatusCode();
         $body = $response->getBody()->getContents();
 
         $data = json_decode($body, true);
 
-        return view('admin.product',['data' => $data]);
+        return view('admin.product',['produk' => $data]);
     }
 
     /**
@@ -44,23 +44,31 @@ class productController extends Controller
     public function store(Request $request)
     {   
 
+        $request->validate([
+            'nama' => 'required',
+            'kategori' => 'required',
+            'harga' => 'required|numeric',
+            'jumlah' => 'required|numeric',
+            'gambar' => 'required',
+            'detail' => 'required'
+        ]);
       
         // return $request;
 
         $foto = $request->file('gambar');
         $NamaFoto = time().'.'.$foto->extension();
         $foto->move(public_path('produk'), $NamaFoto);
-
-        $response = Http::post('http://localhost:9010/dashboard/produk/tambah',[
+   
+        $response = Http::post('http://localhost:9010/produk',[
             'nama' => $request->nama,
             'kategori' => $request->kategori,
-            'harga' => $request->harga,
-            'jumlah' => $request->jumlah,
+            'harga' => (int)$request->harga,
+            'jumlah' => (int)$request->jumlah,
             'gambar' => $NamaFoto,
             'detail' => $request->detail
         ]);
 
-        return back()->with('success','Produk telah ditambahkan');
+        return redirect("/dashboard/produk")->with('success','Produk telah ditambahkan');
 
     }
 
@@ -72,7 +80,19 @@ class productController extends Controller
      */
     public function show($id)
     {
-        //
+
+        // return $id;
+        $client = new Client();
+        $response = $client->request('GET',"http://localhost:9010/produk/$id");
+        $statusCode = $response->getStatusCode();
+        $body = $response->getBody()->getContents();
+
+        $produk = json_decode($body, true);
+        // return $produk;
+        // return $data;
+
+        // return view('admin.produk.lihat-produk',['produk' => $data]);
+        return view('admin.produk.lihat-produk',['produk'=>$produk]);
     }
 
     /**
@@ -83,7 +103,18 @@ class productController extends Controller
      */
     public function edit($id)
     {
-        //
+          // return $id;
+          $client = new Client();
+          $response = $client->request('GET',"http://localhost:9010/produk/$id");
+          $statusCode = $response->getStatusCode();
+          $body = $response->getBody()->getContents();
+  
+          $produk = json_decode($body, true);
+          // return $produk;
+          // return $data;
+  
+          // return view('admin.produk.lihat-produk',['produk' => $data]);
+          return view('admin.produk.ubah-produk',['produk'=>$produk]);
     }
 
     /**
@@ -95,7 +126,50 @@ class productController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'nama' => 'required',
+            'kategori' => 'required',
+            'harga' => 'required|numeric',
+            'jumlah' => 'required|numeric',
+            'detail' => 'required'
+        ]);
+
+        // return $id;
+      
+        // return $request;
+        if($request->gambar != null){
+            $foto = $request->file('gambar');
+            $NamaFoto = time().'.'.$foto->extension();
+            $foto->move(public_path('produk'), $NamaFoto);
+
+            $response = Http::put('http://localhost:9010/produk/'.$id,[
+                'nama' => $request->nama,
+                'kategori' => $request->kategori,
+                'harga' => (int)$request->harga,
+                'jumlah' => (int)$request->jumlah,
+                'gambar' => $NamaFoto,
+                'detail' => $request->detail
+            ]);
+    
+
+        //    return $response;
+
+            return redirect("/dashboard/produk")->with('success','Produk telah ditambahkan');
+        }
+       
+   
+        $response = Http::put('http://localhost:9010/produk/'.$id,[
+            'nama' => $request->nama,
+            'kategori' => $request->kategori,
+            'harga' => (int)$request->harga,
+            'jumlah' => (int)$request->jumlah,
+            'detail' => $request->detail
+        ]);
+
+        // return $response;
+
+        return redirect("/dashboard/produk")->with('success','Produk telah ditambahkan');
+    
     }
 
     /**
