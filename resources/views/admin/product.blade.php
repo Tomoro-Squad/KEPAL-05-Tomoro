@@ -77,14 +77,15 @@
                                                 <td>{{$pro['jumlah']}}</td>
                                                 <td>{{$pro['harga']}}</td>
                                                 <td>
-                                                    <a href="/dashboard/produk/{{$pro['ID']}}" class="btn btn-info btn-sm text-white"><i class="fas fa-eye"></i> Lihat</a>
-                                                    <a href="/dashboard/produk/{{$pro['ID']}}/edit" class="btn btn-warning btn-sm"><i class="far fa-edit"></i> Edit</a>
-                                                    <form action="/dashboard/produk/{{$pro['ID']}}" method="post" >
-                                                        @method('delete')
-                                                        @csrf
-                                                        <button type="submit" class="btn btn-danger btn-sm text-white"><i class=" fas fa-trash"></i> Hapus</button>
-                                                    </form>
-
+                                                    <div class="d-flex">
+                                                        <a href="/dashboard/produk/{{$pro['ID']}}" class="btn btn-info btn-sm text-white"><i class="fas fa-eye"></i> Lihat</a>
+                                                        <a href="/dashboard/produk/{{$pro['ID']}}/edit" class="btn btn-warning btn-sm"><i class="far fa-edit"></i> Edit</a>
+                                                        <form action="/dashboard/produk/{{$pro['ID']}}" method="post" >
+                                                            @method('delete')
+                                                            @csrf
+                                                            <button type="submit" class="btn btn-danger btn-sm text-white"><i class=" fas fa-trash"></i> Hapus</button>
+                                                        </form>
+                                                    </div>
                                                 </td>
                                             </tr>
                                             @endforeach
