@@ -4,6 +4,11 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\mahasiswaController;
 use App\Http\Controllers\productController;
 use App\Http\Controllers\productController2;
+use App\Http\Controllers\loginController;
+use App\Http\Controllers\registrasiController;
+use App\Http\Controllers\berandaController;
+use App\Http\Controllers\pemesananController;
+use App\Http\Controllers\dashboardPemesananController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,13 +21,33 @@ use App\Http\Controllers\productController2;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+//autentikasi
+Route::get("/register", [registrasiController::class,'register'])->middleware('guest');
+Route::post("/register", [registrasiController::class,'registerUser'])->middleware('guest');
+Route::get("/login", [loginController::class,'login'])->middleware('guest');
+Route::post("/login", [loginController::class,'loginUser'])->middleware('guest');
+Route::post("/logout",[loginController::class, 'logout'])->middleware('auth');
+
+Route::middleware(['admin'])->group(function () {
+
+    Route::resource("/dashboard/produk",productController::class);
+
+    // Route::resource("/dashboard/keranjang",pemesananController::class);
+
+    Route::resource("/dashboard/pemesanan",dashboardPemesananController::class);
+
 });
 
-Route::resource("/dashboard/produk",productController::class);
 
-Route::post("/dashboard/produk/tambah", [productController2::class,'tambah']);
+Route::get('/',[berandaController::class,'index']);
+
+Route::get('/produk/{id}',[berandaController::class,'detail']);
+
+Route::resource("/keranjang",pemesananController::class)->middleware('auth');
+
+Route::post("/keranjang/bayar/{id}", [pemesananController::class, 'bayar'])->middleware('auth');
+
+// Route::post("/dashboard/produk/tambah", [productController2::class,'tambah']);
 
 Route::get('/form-basic', function () {
     return view('admin/form-basic');
@@ -52,9 +77,9 @@ Route::get('/index2', function () {
     return view('admin/index2');
 });
 
-Route::get('/login', function () {
-    return view('admin/login');
-});
+// Route::get('/login', function () {
+//     return view('admin/login');
+// });
 
 Route::get('/pbutton', function () {
     return view('admin/pages-buttons');
@@ -80,13 +105,13 @@ Route::get('/pinvoice', function () {
     return view('admin/pages-invoice');
 });
 
-Route::get('/login', function () {
-    return view('admin/login');
-});
+// Route::get('/login', function () {
+//     return view('admin/login');
+// });
 
-Route::get('/register', function () {
-    return view('admin/register');
-});
+// Route::get('/register', function () {
+//     return view('admin/register');
+// });
 
 Route::get('/table', function () {
     return view('admin/tables');

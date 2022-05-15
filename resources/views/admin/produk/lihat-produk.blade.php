@@ -39,7 +39,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="card">
-                            <form class="form-horizontal" method="post" action="/dashboard/produk" enctype="multipart/form-data">
+                           
 
                                 <div class="card-body">
                                     <h3 class="card-title">Detail Produk</h3><br>
@@ -54,7 +54,7 @@
                                                 <b class="text-secondary">{{$produk['kategori']}}</b>
                                             </div>
                                             <div>
-                                                <h2 class="mt-2 text-info fw-bold">{{$produk['harga']}}</h2>
+                                                <h2 class="mt-2 text-info fw-bold">Rp.{{$produk['harga']}}</h2>
                                                 <p>Jumlah produk : {{$produk['jumlah']}} buah</p>
                                             </div>
                                             <div>
@@ -89,8 +89,7 @@
             <!-- footer -->
             <!-- ============================================================== -->
             <footer class="footer text-center">
-                All Rights Reserved by Matrix-admin. Designed and Developed by <a
-                    href="https://www.wrappixel.com">WrapPixel</a>.
+                Kelompok 10 - PASTI
             </footer>
             <!-- ============================================================== -->
             <!-- End footer -->
@@ -129,49 +128,7 @@
     <script src={{asset("/assets/libs/jquery-minicolors/jquery.minicolors.min.js")}}></script>
     <script src={{asset("/assets/libs/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js")}}></script>
     <script src={{asset("/assets/libs/quill/dist/quill.min.js")}}></script>
-    <script>
-        //***********************************//
-        // For select 2
-        //***********************************//
-        $(".select2").select2();
 
-        /*colorpicker*/
-        $('.demo').each(function () {
-            //
-            // Dear reader, it's actually very easy to initialize MiniColors. For example:
-            //
-            //  $(selector).minicolors();
-            //
-            // The way I've done it below is just for the demo, so don't get confused
-            // by it. Also, data- attributes aren't supported at this time...they're
-            // only used for this demo.
-            //
-            $(this).minicolors({
-                control: $(this).attr('data-control') || 'hue',
-                position: $(this).attr('data-position') || 'bottom left',
-
-                change: function (value, opacity) {
-                    if (!value) return;
-                    if (opacity) value += ', ' + opacity;
-                    if (typeof console === 'object') {
-                        console.log(value);
-                    }
-                },
-                theme: 'bootstrap'
-            });
-
-        });
-        /*datwpicker*/
-        jQuery('.mydatepicker').datepicker();
-        jQuery('#datepicker-autoclose').datepicker({
-            autoclose: true,
-            todayHighlight: true
-        });
-        var quill = new Quill('#editor', {
-            theme: 'snow'
-        });
-
-    </script>
 </body>
 
 </html>
