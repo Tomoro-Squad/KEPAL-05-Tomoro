@@ -4,6 +4,10 @@
     <div class="container text-center">
         @if (session()->has('success'))
             <h2>{{session('success')}}</h2>
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <strong>Akun Anda berhasil terdaftar !</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
         @endif
     </div>
 
@@ -38,7 +42,7 @@
 
 
             <label for="" class="mt-3">Password</label>
-            <input type="text" name="password" class="form-control">
+            <input type="password" name="password" class="form-control">
             @error('password') <p class="text-danger">{{$message}}</p> @enderror
 
             <br>

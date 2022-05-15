@@ -14,13 +14,14 @@
   <body>
   <nav class="navbar navbar-expand-lg navbar-light bg-light p-1">
 
-    <div class="d-flex ">
+    <div class="d-flex">
       <a class="navbar-brand fw-bold" href="/" style=" color: #2ED00D;"><h4><img src="{{asset('/file/logo.jpg')}}" alt="" style="max-width:40px;"> TokOnlen</h4></a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
+    </div>
 
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <div class="collapse navbar-collapse d-flex justify-content-end" id="navbarSupportedContent">
         @auth           
         <ul class="navbar-nav ms-auto">
           <li class="nav-item dropdown mt-3">
@@ -60,6 +61,7 @@
             </a>
           </li>
         </ul>
+        
         @else
         <div class="d-flex justify-content-end">
           <a href="/login" class="btn btn-success btn-sm" >Login</a>&nbsp;
@@ -67,5 +69,4 @@
         </div>
         @endauth
       </div>
-    </div>
   </nav>

@@ -20,7 +20,7 @@
             <div class="alert alert-danger d-flex align-items-center" role="alert">
                 <i class="fas fa-exclamation-triangle"></i>&nbsp;
                 <div>
-                  {{session('success')}}
+                  {{session('failed')}}
                 </div>
               </div>
             @endif

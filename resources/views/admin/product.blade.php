@@ -14,12 +14,12 @@
             <div class="page-breadcrumb">
                 <div class="row">
                     <div class="col-12 d-flex no-block align-items-center">
-                        <h4 class="page-title">Tables</h4>
+                        <h4 class="page-title">PRODUCTS</h4>
                         <div class="ms-auto text-end">
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb">
                                     <li class="breadcrumb-item"><a href="#">Home</a></li>
-                                    <li class="breadcrumb-item active" aria-current="page">Library</li>
+                                    <li class="breadcrumb-item active" aria-current="page">Product</li>
                                 </ol>
                             </nav>
                         </div>
@@ -43,19 +43,11 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="d-flex">
-                                    <h5 class="card-title">Basic Datatable</h5>
+                                    <h5 class="card-title">Daftar Product</h5>
                                 </div><br>
                                 <div class="d-flex">
                                     <div class="">
                                         <a button="Click here" class="btn btn-primary" href="/dashboard/produk/create"><i class="fas fa-plus-square"></i> &nbsp;Tambah Product</a>
-                                    </div>
-                                    <div class="ms-auto">
-                                        <form action="">
-                                            <div class="d-flex">
-                                                <input type="text" class="form-control" placeholder="Cari produk">
-                                                <button class="btn btn-success text-white"><i class="fas fa-search"></i></button>
-                                            </div>
-                                        </form>
                                     </div>
                                 </div><br>
                                 <div class="table-responsive">
@@ -78,12 +70,12 @@
                                                 <td>{{$pro['harga']}}</td>
                                                 <td>
                                                     <div class="d-flex">
-                                                        <a href="/dashboard/produk/{{$pro['ID']}}" class="btn btn-info btn-sm text-white"><i class="fas fa-eye"></i> Lihat</a>
-                                                        <a href="/dashboard/produk/{{$pro['ID']}}/edit" class="btn btn-warning btn-sm"><i class="far fa-edit"></i> Edit</a>
+                                                        <a href="/dashboard/produk/{{$pro['ID']}}" class="btn btn-info btn-sm text-white mx-1"><i class="fas fa-eye"></i> Lihat</a>
+                                                        <a href="/dashboard/produk/{{$pro['ID']}}/edit" class="btn btn-warning btn-sm  mx-1"><i class="far fa-edit"></i> Edit</a>
                                                         <form action="/dashboard/produk/{{$pro['ID']}}" method="post" >
                                                             @method('delete')
                                                             @csrf
-                                                            <button type="submit" class="btn btn-danger btn-sm text-white"><i class=" fas fa-trash"></i> Hapus</button>
+                                                            <button type="submit" class="btn btn-danger btn-sm text-white mx-1"><i class=" fas fa-trash"></i> Hapus</button>
                                                         </form>
                                                     </div>
                                                 </td>

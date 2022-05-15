@@ -10,7 +10,7 @@
             <label for="">Email</label>
             <input type="text" name="email" class="form-control" required>
             <label for="" class="mt-3">Password</label>
-            <input type="text" name="password" class="form-control" required>
+            <input type="password" name="password" class="form-control" required>
             <br>
 
             <div class="container text-center mt-4">

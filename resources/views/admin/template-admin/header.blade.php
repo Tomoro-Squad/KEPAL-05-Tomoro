@@ -74,6 +74,8 @@
                     <!-- ============================================================== -->
                     <a class="nav-toggler waves-effect waves-light d-block d-md-none" href="javascript:void(0)"><i
                             class="ti-menu ti-close"></i></a>
+
+
                 </div>
                 <!-- ============================================================== -->
                 <!-- End Logo -->
@@ -90,6 +92,9 @@
                         <!-- create new -->
                         <!-- ============================================================== -->
                         
+                    </ul>
+                    <ul class="mt-3 mr-4">
+                        <a href="/" class="btn btn-info">Halaman Pengunjung</a>
                     </ul>
                 </div>
             </nav>

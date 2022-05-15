@@ -14,12 +14,12 @@
             <div class="page-breadcrumb">
                 <div class="row">
                     <div class="col-12 d-flex no-block align-items-center">
-                        <h4 class="page-title">Tables</h4>
+                        <h4 class="page-title">PEMESANAN</h4>
                         <div class="ms-auto text-end">
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb">
                                     <li class="breadcrumb-item"><a href="#">Home</a></li>
-                                    <li class="breadcrumb-item active" aria-current="page">Library</li>
+                                    <li class="breadcrumb-item active" aria-current="page">Pemesanan</li>
                                 </ol>
                             </nav>
                         </div>
@@ -70,7 +70,7 @@
                                                 <td>{{$pes['jumlah']}}</td>
                                                 <td>{{$pes['total']}}</td>
                                                 <td>
-                                                    @if ($pes['status'] == 1)
+                                                    @if ($pes['status'] != 0)
                                                         <small class="text-success fw-bold"><i class="fas fa-check-square"></i> Sudah dibayar</small>
                                                         @else
                                                         <small class="text-danger"><i class="fas fa-window-close"></i> Belum dibayar</small>

@@ -11,13 +11,13 @@
           </div>
           <div class="carousel-inner">
             <div class="carousel-item active">
-              <img src="{{asset('file/slide1.jpg')}}" class=" w-100" alt="...">
+              <img src="{{asset('file/slide1.png')}}" class=" w-100" alt="...">
             </div>
             <div class="carousel-item">
-              <img src="{{asset('file/slide1.jpg')}}" class=" w-100" alt="...">
+              <img src="{{asset('file/slide2.png')}}" class=" w-100" alt="...">
             </div>
             <div class="carousel-item">
-              <img src="{{asset('file/slide3.jpg')}}" class=" w-100" alt="...">
+              <img src="{{asset('file/slide3.png')}}" class=" w-100" alt="...">
             </div>
           </div>
           <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
@@ -35,7 +35,7 @@
             <div class="p-4">
               <h2>Diskon Ramadhan 50%</h2>
               <h1><i class="fas fa-truck"></i></h1>
-              <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+              <p>Dell is offering their G15 Intel Core i5-11260H 15.6" 1080p 120Hz Gaming Laptop w/ 4GB GDDR6 NVIDIA GeForce RTX 3050 Ti Graphics, 8GB DDR4 2933MHz RAM and 256GB M.2 Solid State Drive for $699.99 Free Shipping. Save $485 off the $1185 list price.<br><br>Save $435 on the faster CPU G15 Gaming Laptop configuration available with AMD Ryzen 7 5800H 8-Core CPU for a low $799.99 after Coupon Code: "50OFF699"</p>
             </div>
           </div>
         </div>

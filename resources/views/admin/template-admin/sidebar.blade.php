@@ -7,7 +7,7 @@
                 <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
                         href="/dashboard/produk" aria-expanded="false"><i class="fab fa-product-hunt"></i><span
                             class="hide-menu">Product</span></a></li>
-                <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
+                <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-light sidebar-link"
                         href="/dashboard/pemesanan" aria-expanded="false"><i class="fab fa-product-hunt"></i><span
                             class="hide-menu">Pemesanan</span></a></li>
             </ul>
