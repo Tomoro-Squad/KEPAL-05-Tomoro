@@ -2,8 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\mahasiswaController;
-use App\Http\Controllers\productController;
-use App\Http\Controllers\productController2;
+use App\Http\Controllers\ProdukController;
+use App\Http\Controllers\ProdukController2;
 use App\Http\Controllers\loginController;
 use App\Http\Controllers\registrasiController;
 use App\Http\Controllers\berandaController;
@@ -30,7 +30,9 @@ Route::post("/logout",[loginController::class, 'logout'])->middleware('auth');
 
 Route::middleware(['admin'])->group(function () {
 
-    Route::resource("/dashboard/produk",productController::class);
+    Route::resource("/dashboard/produk",ProdukController::class);
+
+    Route::resource("/dashboard/produk/gambar",ProdukController::class);
 
     // Route::resource("/dashboard/keranjang",pemesananController::class);
 
@@ -41,7 +43,7 @@ Route::middleware(['admin'])->group(function () {
 
 Route::get('/',[berandaController::class,'index']);
 
-Route::get('/produk/{id}',[berandaController::class,'detail']);
+Route::get('/produk/{produk}',[berandaController::class,'detail']);
 
 Route::resource("/keranjang",pemesananController::class)->middleware('auth');
 

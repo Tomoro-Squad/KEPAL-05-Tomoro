@@ -39,35 +39,100 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="card">
-                           
+                            <form class="form-horizontal" method="post" action="/dashboard/produk" enctype="multipart/form-data">
 
                                 <div class="card-body">
-                                    <h3 class="card-title">Detail Produk</h3><br>
-                                    <div class="row">
-                                        <div class="col-md-5 mb-3">
-                                            <img src="/produk/{{$produk['gambar']}}" alt="" style="width: 100%;">
-                                        </div>
-                                        {{-- @foreach ($produk as $pro) --}}
-                                        <div class="col-md-5">
-                                            <div>
-                                                <h4>{{$produk['nama']}}</h4>
-                                                <b class="text-secondary">{{$produk['kategori']}}</b>
-                                            </div>
-                                            <div>
-                                                <h2 class="mt-2 text-info fw-bold">Rp.{{$produk['harga']}}</h2>
-                                                <p>Jumlah produk : {{$produk['jumlah']}} buah</p>
-                                            </div>
-                                            <div>
-                                                <h5 class="text-success">Detail</h5>
-                                                <p>
-                                                    {!!$produk['detail']!!} 
-                                                </p>
-                                            </div>
-                                        </div>
-                                        {{-- @endforeach --}}
-                                    </div>
+                                    <h3 class="card-title">TAMBAH PRODUK</h3><br>
+                                    <br><br>
 
-                                    <br>
+                                    <form enctype="multipart/form-data" method="post" action="/dashboard/produk" >
+                                        @csrf
+                                    <div class="modal-body">
+                                      <div class="form-group mt-3">
+                                          <div class="">
+                                              <label class="mx-4 w-25" >Nama Produk</label>
+                                              <input type="text" name="name" class="form-control mx-3" placeholder="Nama produk disini" required>
+                                              @error('nama')
+                                              <small class="text-danger container">
+                                                 {{$message}}
+                                              </small>
+                                              @enderror
+                                          </div>
+                                      </div>
+                            
+                                      <div class="form-group mt-3">
+                                          <div class="">
+                                              <label class="mx-4 w-25" >Kategori</label>
+                                              <select name="kategori_id" class="form-control mx-3" placeholder="Kategori disini" required>
+                                                <option value="1">elektronik</option>
+                                                <option value="2">aksesoris</option>
+                                              </select>
+                                              @error('kategori')
+                                              <small class="text-danger container">
+                                                 {{$message}}
+                                              </small>
+                                              @enderror
+                                          </div>
+                                      </div>
+                            
+                                      <div class="form-group mt-3">
+                                          <div class="">
+                                              <label class="mx-4 w-25" >Harga</label>
+                                              <input type="number" name="harga" class="form-control mx-3" placeholder="Harga disini" required>
+                                              @error('harga')
+                                              <small class="text-danger container">
+                                                 {{$message}}
+                                              </small>
+                                              @enderror
+                                          </div>
+                                      </div>
+                            
+                                      <div class="form-group mt-3">
+                                          <div class="">
+                                              <label class="mx-4 w-25" >Jumlah</label>
+                                              <input type="number" name="jumlah" class="form-control mx-3" placeholder="Jumlah disini" required>
+                                              @error('jumlah')
+                                              <small class="text-danger container">
+                                                 {{$message}}
+                                              </small>
+                                              @enderror
+                                          </div>
+                                      </div>
+                            
+                                      <div class="form-group mt-3">
+                                          <div class="">
+                                              <label class="mx-4 w-25" >Deskripsi</label> 
+                                              <div class="mx-3">
+                                                <input id="detail" type="hidden" name="detail" >
+                                                <trix-editor input="detail" style="height: 250px;"></trix-editor>
+                                                @error('detail')
+                                                <small class="text-danger container">
+                                                     {{$message}}
+                                                </small>
+                                                @enderror
+                                              </div>
+                                          </div>
+                                      </div>
+                            
+                                      <div class="form-group mt-3">
+                                          <div class="">
+                                              <label class="mx-4 w-25" >Gambar</label><br>
+                                              <input type="file" name="gambar[]" class="custom-file-input mx-3" multiple>
+                                              @error('gambar')
+                                              <small class="text-danger container">
+                                                {{$message}}
+                                              </small>
+                                              @enderror
+                                          </div>
+                                      </div>
+                            
+                                  </div>
+                                  <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                                    <button type="submit" class="btn btn-primary">Kirim</button>
+                                  </div>
+                            
+                                  </form>
                         </div>
                     </div>
                 </div>
@@ -128,7 +193,6 @@
     <script src={{asset("/assets/libs/jquery-minicolors/jquery.minicolors.min.js")}}></script>
     <script src={{asset("/assets/libs/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js")}}></script>
     <script src={{asset("/assets/libs/quill/dist/quill.min.js")}}></script>
-
 </body>
 
 </html>

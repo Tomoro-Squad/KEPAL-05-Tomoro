@@ -54,6 +54,7 @@
                                     <table class="table table-striped table-bordered">
                                         <thead>
                                             <tr>
+                                                <th>No</th>
                                                 <th>Nama</th>
                                                 <th>Kategori</th>
                                                 <th>Jumlah</th>
@@ -64,14 +65,15 @@
                                         <tbody>
                                             @foreach ($produk as $pro)
                                             <tr>
-                                                <td>{{$pro['nama']}}</td>
-                                                <td>{{$pro['kategori']}}</td>
+                                                <td>{{$loop->iteration}}</td>
+                                                <td>{{$pro['name']}}</td>
+                                                <td>{{$pro['kategori_id']}}</td>
                                                 <td>{{$pro['jumlah']}}</td>
                                                 <td>{{$pro['harga']}}</td>
                                                 <td>
                                                     <div class="d-flex">
-                                                        <a href="/dashboard/produk/{{$pro['ID']}}" class="btn btn-info btn-sm text-white mx-1"><i class="fas fa-eye"></i> Lihat</a>
-                                                        <a href="/dashboard/produk/{{$pro['ID']}}/edit" class="btn btn-warning btn-sm  mx-1"><i class="far fa-edit"></i> Edit</a>
+                                                        <a href="/dashboard/produk/{{$pro['id']}}" class="btn btn-info btn-sm text-white mx-1"><i class="fas fa-eye"></i> Lihat</a>
+                                                        <a href="/dashboard/produk/{{$pro['id']}}/edit" class="btn btn-warning btn-sm  mx-1"><i class="far fa-edit"></i> Edit</a>
                                                         <form action="/dashboard/produk/{{$pro['ID']}}" method="post" >
                                                             @method('delete')
                                                             @csrf

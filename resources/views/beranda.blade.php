@@ -52,14 +52,18 @@
             <div class="card-produk border border-1 container p-2">
               <div class="text-center">
               <div class="border border-1 d-flex container" style="width: max-content;">
-                <img src="produk/{{$pro['gambar']}}"  alt="" style="width: 100%; height: 100px;"> 
+                @foreach ($pro->gambar as $pgam)
+                @if($loop->first)
+                  <img src="{{asset('/storage/'.$pgam->gambar)}}"  alt="" style="width: 100%; height: 100px;"> 
+                @endif
+                @endforeach
               </div>
               <div class="mt-2">
                 <small class="">{{$pro['nama']}}</small>
                 <h4 class="harga-produk mt-2">Rp.{{$pro['harga']}}</h4>
               </div>
               <div class="mb-2 mt-3">
-                <a href="/produk/{{$pro['ID']}}" class="tombol-detail  py-1 px-4">Detail</a>
+                <a href="/produk/{{$pro->id}}" class="tombol-detail  py-1 px-4">Detail</a>
               </div>
             </div>
             </div>

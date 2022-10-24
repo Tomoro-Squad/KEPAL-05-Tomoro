@@ -6,12 +6,48 @@
         <h3 class="card-title">Detail Produk</h3><br>
         <div class="row container">
             <div class="col-md-4 mb-3">
-                <img src="/produk/{{$produk['gambar']}}" alt="" style="width: 100%;">
+                
+                <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="true">
+                    <div class="carousel-indicators">
+                        @php
+                        $i = 0;    
+                        @endphp
+                        @foreach ($produk->gambar as $pgam)
+                            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="{{$i}}" class="active" @if($loop->first) aria-current="true" @else data-bs-slide-to="{{$loop->iteration}}" @endif aria-label="Slide {{$loop->iteration}}"></button>
+                        @php
+                            $i++;    
+                        @endphp
+                        @endforeach
+                      
+                      {{-- <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button> --}}
+                    </div>
+                    <div class="carousel-inner">
+                    @foreach ($produk->gambar as $pgam)
+                    <div class="carousel-item @if($loop->first) active @endif">
+                        <img src="{{asset('/storage/'.$pgam->gambar)}}" class="d-block w-100" alt="...">
+                      </div>
+                    @endforeach
+                     
+
+
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                      <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                      <span class="visually-hidden">Next</span>
+                    </button>
+                  </div>
+
+                {{-- <img src="/produk/{{$produk['gambar']}}" alt="" style="width: 100%;"> --}}
             </div>
             {{-- @foreach ($produk as $pro) --}}
             <div class="col-md-4">
                 <div>
-                    <h4>{{$produk['nama']}}</h4>
+                    <h4>{{$produk['name']}}</h4>
                     <b class="text-secondary">{{$produk['kategori']}}</b>
                 </div>
                 <div>
@@ -33,9 +69,9 @@
                             @csrf
                             @auth
                             <div class="d-none">
-                                <input type="text" name="pnama" value="{{$produk['nama']}}">
+                                <input type="text" name="pnama" value="{{$produk['name']}}">
                                 <input type="text" name="user_nama" value="{{Auth::user()->username}}">
-                                <input type="number" name="pid" value="{{$produk['ID']}}">
+                                <input type="number" name="pid" value="{{$produk->id}}">
                                 <input type="number" name="user_id" value="{{Auth::user()->id}}">
                                 <input type="number" name="harga" value="{{$produk['harga']}}">
                                 <input type="text" name="gambar" value="{{$produk['gambar']}}">

@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
+use App\Helpers\HashSalt;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\User>
@@ -18,10 +19,14 @@ class UserFactory extends Factory
     public function definition()
     {
         return [
-            'name' => $this->faker->name(),
-            'email' => $this->faker->unique()->safeEmail(),
+            'name' => "Rizki Okto salt",
+            'email' => "rizok@gmail.com",
+            'username' => "Rizok",
+            'alamat' => "Ambarita",
+            'gender' => "Laki - laki",
+            'role' => 1,
             'email_verified_at' => now(),
-            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+            'password' => HashSalt::hash_salt('12345678', Str::random(8)),
             'remember_token' => Str::random(10),
         ];
     }

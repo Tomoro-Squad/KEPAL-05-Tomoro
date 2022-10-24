@@ -39,20 +39,71 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="card">
-                            <form class="form-horizontal" method="post" action="/dashboard/produk" enctype="multipart/form-data">
+                            <div class="card-body">
+                                <h3 class="card-title">UBAH PRODUK</h3><br>
+                                <br><br>
 
-                                <div class="card-body">
-                                    <h3 class="card-title">TAMBAH PRODUK</h3><br>
-                                    <br><br>
+                                <div class="form-group mt-3">
+                                    <div class="">
+                                      <label class="mx-4 w-25" >Gambar</label><br>
+                                        <div class="d-flex">
+                                       @foreach ($produk->gambar as $pg)
+                                          <div class="px-4">
+                                              <div class="d-flex manage-img" >
+                                                  <form action="/dashboard/produk/gambar/{{$pg->id}}" method="post" enctype="multipart/form-data" >
+                                                      @method('delete')
+                                                      @csrf
+                                                      <input type="hidden" name="gambar-lama" value="{{$pg->gambar}}">
+                                                      <button class="btn btn-sm btn-danger text-white rounded delete-img" type="submit"><i class="fas fa-trash"></i></button>
+                                                  </form>
+                                                  &nbsp;&nbsp;
+                                                  <a class="btn btn-sm btn-warning rounded" data-bs-toggle="modal" data-bs-target="#gambar{{$pg->id}}"><i class="fas fa-edit"></i></a>
+                                              </div>
+                                              <img src="{{asset('/storage/'.$pg->gambar)}}" class="c" style="max-width: 100px;" alt="">&nbsp;&nbsp;
+                                          </div>
 
-                                    <form enctype="multipart/form-data" method="post" action="/dashboard/produk" >
-                                        @csrf
+                                                   <!-- Modal -->
+                                                   <div class="modal fade" id="gambar{{$pg->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                      <div class="modal-dialog">
+                                                      <div class="modal-content">
+                                                          <div class="modal-header">
+                                                          <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                                                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                          </div>
+                                                          <div class="modal-body">
+
+                                                           <form action="/dashboard/produk/gambar/{{$pg->id}}" method="post" enctype="multipart/form-data">
+                                                              @method('put')
+                                                              @csrf
+                                                              <input type="file" name='gambar' value="{{$pg->gambar}}" > 
+                                                              <input type="hidden" name='gambar_lama' value="{{$pg->gambar}}">
+                                                           </form>
+
+                                                          </div>
+                                                          <div class="modal-footer">
+                                                          <button class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                          <button class="btn btn-primary">Save changes</button>
+                                                          </div>
+                                                      </div>
+                                                      </div>
+                                                  </div>
+
+                                          @endforeach
+                                        </div>
+                                        
+                                        <br><br>
+                                    </div>
+                                </div>
+
+                                <form  method="post" action="/dashboard/produk/{{$produk['id']}}"> 
+                                    @method('put')
+                                    @csrf
                                     <div class="modal-body">
                                       <div class="form-group mt-3">
                                           <div class="">
                                               <label class="mx-4 w-25" >Nama Produk</label>
-                                              <input type="text" name="nama" class="form-control mx-3" placeholder="Nama produk disini" required>
-                                              @error('nama')
+                                              <input type="text" name="name" class="form-control mx-3" placeholder="Nama produk disini" value="{{$produk['name']}}" required>
+                                              @error('name')
                                               <small class="text-danger container">
                                                  {{$message}}
                                               </small>
@@ -63,7 +114,7 @@
                                       <div class="form-group mt-3">
                                           <div class="">
                                               <label class="mx-4 w-25" >Kategori</label>
-                                              <input type="text" name="kategori" class="form-control mx-3" placeholder="Kategori disini" required>
+                                              <input type="text" name="kategori_id" class="form-control mx-3" placeholder="Kategori disini" value="{{$produk['kategori']}}" required>
                                               @error('kategori')
                                               <small class="text-danger container">
                                                  {{$message}}
@@ -75,7 +126,7 @@
                                       <div class="form-group mt-3">
                                           <div class="">
                                               <label class="mx-4 w-25" >Harga</label>
-                                              <input type="number" name="harga" class="form-control mx-3" placeholder="Harga disini" required>
+                                              <input type="number" name="harga" class="form-control mx-3" placeholder="Harga disini" value="{{$produk['harga']}}" required>
                                               @error('harga')
                                               <small class="text-danger container">
                                                  {{$message}}
@@ -87,7 +138,7 @@
                                       <div class="form-group mt-3">
                                           <div class="">
                                               <label class="mx-4 w-25" >Jumlah</label>
-                                              <input type="number" name="jumlah" class="form-control mx-3" placeholder="Jumlah disini" required>
+                                              <input type="number" name="jumlah" class="form-control mx-3" placeholder="Jumlah disini" value="{{$produk['jumlah']}}" required>
                                               @error('jumlah')
                                               <small class="text-danger container">
                                                  {{$message}}
@@ -100,8 +151,8 @@
                                           <div class="">
                                               <label class="mx-4 w-25" >Deskripsi</label> 
                                               <div class="mx-3">
-                                                <input id="detail" type="hidden" name="detail" >
-                                                <trix-editor input="detail" style="height: 250px;"></trix-editor>
+                                                <input id="detail" type="hidden" name="detail" value="{{$produk['detail']}}">
+                                                <trix-editor input="detail" style="height: 200px;"></trix-editor>
                                                 @error('detail')
                                                 <small class="text-danger container">
                                                      {{$message}}
@@ -110,29 +161,31 @@
                                               </div>
                                           </div>
                                       </div>
+
+                                      <style>
+                                        .manage-img{
+                                            position: absolute;
+                                            transform: scale(0.8);
+                                        }
+                                      </style>
                             
-                                      <div class="form-group mt-3">
-                                          <div class="">
-                                              <label class="mx-4 w-25" >Gambar</label><br>
-                                              <input type="file" name="gambar" class="custom-file-input mx-3">
-                                              @error('gambar')
-                                              <small class="text-danger container">
-                                                {{$message}}
-                                              </small>
-                                              @enderror
-                                          </div>
+                                     
+                            
+                                  </div>
+                                   @csrf
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                                        <button type="submit" class="btn btn-primary">Kirim</button>
+                                        {{-- <input type="submit" value="submit" /> --}}
                                       </div>
-                            
-                                  </div>
-                                  <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                                    <button type="submit" class="btn btn-primary">Kirim</button>
-                                  </div>
-                            
-                                  </form>
+                                </form>
                         </div>
                     </div>
                 </div>
+
+                <form action="/adasd" method="post">
+                    <button type="submit">casdasd</button>
+                </form>
                 <!-- ============================================================== -->
                 <!-- End PAge Content -->
                 <!-- ============================================================== -->

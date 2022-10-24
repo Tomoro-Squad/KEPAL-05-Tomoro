@@ -12,10 +12,11 @@
         content="Matrix Admin Lite Free Version is powerful and clean admin dashboard template, inpired from Bootstrap Framework">
     <meta name="robots" content="noindex,nofollow">
     <title>Admin | Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="../../assets/images/favicon.png">
     <!-- Custom CSS -->
-    <link href="{{asset('assets/libs/flot/css/float-chart.css')}}" rel="stylesheet">
+    {{-- <link href="{{asset('assets/libs/flot/css/float-chart.css')}}" rel="stylesheet"> --}}
     <!-- Custom CSS -->
     <link href="/css/style.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="{{asset('/css/trix.css')}}">

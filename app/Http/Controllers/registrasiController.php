@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use App\MOdels\User;
+use App\Models\User;
+use App\Helpers\HashSalt;
+use Str;
 
 class registrasiController extends Controller
 {
@@ -19,14 +21,16 @@ class registrasiController extends Controller
             'email' => 'required|email:dns|unique:users',
             'gender' => 'required',
             'alamat' => 'required|min:3|max:255',
-            'password' => 'required|min:3|max:255'
+            'password' => 'required|min:3|max:255',
+            'salt' => 'nullable'
         ]);
 
         // return $validatedData;
 
-        $validatedData['password'] = Hash::make($validatedData['password']);
-
-        // return $validatedData;
+     
+        
+        $validatedData['password'] = HashSalt::hash_salt($validatedData['password']);
+        // $validatedData['password'] =  $validatedData['password'].$validatedData['salt'];
 
         User::create($validatedData);
 
