@@ -27,7 +27,7 @@ use Illuminate\Support\Facades\Auth;
 // Route::get("/register", [registrasiController::class,'register'])->middleware('guest');
 // Route::post("/register", [registrasiController::class,'registerUser'])->middleware('guest');
 // Route::get("/login", [loginController::class,'login'])->middleware('guest');
-// Route::post("/login", [loginController::class,'loginUser'])->middleware('guest');
+Route::post('/loginUser', [loginController::class,'loginUser'])->middleware('guest');
 // Route::post("/logout",[loginController::class, 'logout'])->middleware('auth');
 
 Route::get('/verification', [UserController::class, 'verification'])->name('verification');

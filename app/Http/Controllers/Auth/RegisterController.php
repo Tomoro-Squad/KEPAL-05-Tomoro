@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Events\Auth\UserActivationEmail;
+use App\Helpers\HashSalt;
 
 class RegisterController extends Controller
 {
@@ -58,6 +59,7 @@ class RegisterController extends Controller
             'alamat' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'salt' => 'nullable'
         ]);
     }
 
@@ -76,7 +78,7 @@ class RegisterController extends Controller
             'gender' => $data['gender'],
             'alamat' => $data['alamat'],
             'email' => $data['email'],
-            'password' => Hash::make($data['password']),
+            'password' => HashSalt::hash_salt($data['password']),
             'token_activation' => rand(100000,999999),
             'isVerified' => false,
         ]);
