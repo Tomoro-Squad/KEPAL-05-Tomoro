@@ -15,7 +15,7 @@
                             <label for="otp" class="col-md-4 col-form-label text-md-end">{{ __('Kode OTP') }}</label>
 
                             <div class="col-md-6">
-                                <input id="otp" type="otp" class="form-control @error('otp') is-invalid @enderror" name="otp" value="{{ old('otp') }}" required autocomplete="otp" autofocus>
+                                <input id="otp" type="number" class="form-control @error('otp') is-invalid @enderror" name="otp" value="{{ old('otp') }}" required autocomplete="otp" autofocus>
 
                                 @error('otp')
                                 <span class="invalid-feedback" role="alert">
@@ -32,7 +32,7 @@
                                     Kirim
                                 </button>
 
-                                <a href="" style="margin-left: 20px;" data-bs-toggle="modal" data-bs-target="#exampleModal">Resend OTP</a>
+                                <a href="" style="margin-left: 20px;" data-bs-toggle="modal" data-bs-target="#exampleModal">Kirim OTP kembali</a>
                             </div>
                         </div>
                     </form>
@@ -47,20 +47,23 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Resend OTP</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Kirim OTP</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
+            
+            <form method="POST" action="{{url('/postVerification')}}">
+                        @csrf
             <div class="modal-body">
-                <form>
                     <div class="mb-3">
-                        <label for="exampleInputEmail1" class="form-label">Email address</label>
+                        <label for="exampleInputEmail1" class="form-label">Alamat Email</label>
                         <input type="email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
                     </div>
-                </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary">Send</button>
+                <button type="submit" class="btn btn-primary">Kirim</button>
             </div>
+            
+            </form>
         </div>
     </div>
 </div>
