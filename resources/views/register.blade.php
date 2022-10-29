@@ -22,7 +22,7 @@
             @error('name') <p class="text-danger">{{$message}}</p> @enderror
 
             <label for="" class="mt-3">Username</label>
-            <input type="text" name="username" class="form-control">
+            <input type="text" name="username" g="form-control">
             @error('username') <p class="text-danger">{{$message}}</p> @enderror
 
             <label for="" class="mt-3">Alamat</label>

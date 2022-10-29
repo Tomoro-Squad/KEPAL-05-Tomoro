@@ -26,12 +26,15 @@
         <ul class="navbar-nav ms-auto">
           <li class="nav-item dropdown mt-3">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button"  data-bs-display="static" aria-expanded="false" data-bs-toggle="dropdown" aria-expanded="false">
-              <i class="fas fa-user" style=""></i>&nbsp;{{Auth::user()->name}}
+              <i class="fas fa-user" style=""></i>&nbsp;{{Auth::user()->username}}
             </a>
             <ul class="dropdown-menu dropdown-menu-dark mr-5" aria-labelledby="navbarDarkDropdownMenuLink" style="width:max-content">
               @if (Auth::user()->role == 1)
-              <li><a class="dropdown-item" href="/dashboard/produk">Dashboard</a></li>
+              <li><a class="dropdown-item py-3"  href="/dashboard/produk" class="bg-transparent border-0"><i class="fas fa-home"></i>&nbsp; Dashboard</a></li>
               @endif
+              <li>
+                    <a href="/profile"  class="dropdown-item bg-transparent border-0 link-info py-3"><i class="fas fa-user"></i>&nbsp; Profile</a>
+              </li>
               <li>
                 <div class="dropdown-item" href="">
                   <form action="/logout" method="post">
@@ -66,12 +69,6 @@
         <div class="d-flex justify-content-end">
           <a href="/login" class="btn btn-success btn-sm" >Login</a>&nbsp;
           <a href="/register" class="btn btn-outline-success btn-sm" >Register</a>
-          <div class="dropdown-item" href="">
-            <form action="/logout" method="post">
-              @csrf
-              <button type="submit" class="bg-transparent border-0 link-danger"><i class="fas fa-sign-out-alt"></i>&nbsp; Logout</button>
-            </form>
-          </div>
         </div>
         @endauth
       </div>
