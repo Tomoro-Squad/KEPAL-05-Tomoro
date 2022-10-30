@@ -34,6 +34,8 @@ Route::get('/verification', [UserController::class, 'verification'])->name('veri
 
 Route::post('/postVerification', [UserController::class, 'postVerification']);
 
+Route::post('/postResend', [UserController::class, 'postResend']);
+
 Route::get('/profile', function() {
     return view('profile');
 });
