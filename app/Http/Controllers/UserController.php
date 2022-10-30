@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use App\Events\Auth\UserActivationEmail;
 
 class UserController extends Controller
 {
@@ -23,4 +24,30 @@ class UserController extends Controller
         }
     }
 
+    public function postResend(Request $request)
+    {
+        $this->validates($request);
+
+        $user = User::where('email', $request->email)->first();
+
+        if ($user == null) {
+            return redirect()->back();
+        } else {
+            $user->token_activation = rand(100000, 999999);
+            $user->save();
+
+            event(new UserActivationEmail($user));
+
+            return redirect()->route('verification')->withSuccess('Kode OTP telah dikirim, silakan cek email Anda untuk aktivasi');
+        }
+    }
+
+    protected function validates(Request $request)
+    {
+        $this->validate($request, [
+            'email' => 'required|email|exists:users,email'
+        ], [
+            'email.exists' => 'Email tidak ditemukan, silakan cek kembali!'
+        ]);
+    }
 }

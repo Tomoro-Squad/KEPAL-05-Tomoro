@@ -4,6 +4,8 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
+
+
             <div class="card">
                 <div class="card-header">{{ __('Verifikasi OTP') }}</div>
 
@@ -12,18 +14,29 @@
                         @csrf
 
                         <div class="row mb-3">
+                            <label for="otp" class="col-md-4 col-form-label text-md-end"></label>
+                            <div class="col-md-6">
+                                @if(Session::has('flash_message_error'))
+                                <strong style="color:red">{!! session('flash_message_error')!!}</strong>
+                                @endif
+
+                                @if(Session::has('flash_message_success'))
+                                <strong style="color:green">{!! session('flash_message_success')!!}</strong>
+                                @endif
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
                             <label for="otp" class="col-md-4 col-form-label text-md-end">{{ __('Kode OTP') }}</label>
 
                             <div class="col-md-6">
-                                <input id="otp" type="number" class="form-control @error('otp') is-invalid @enderror" name="otp" value="{{ old('otp') }}" required autocomplete="otp" autofocus>
-
-                                @error('otp')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                                @enderror
+                                <input id="otp" type="text" maxlength="6" class="form-control @error('otp') is-invalid @enderror" name="otp" value="{{ old('otp') }}" required autocomplete="otp" autofocus>
                             </div>
+
+
                         </div>
+
+
 
 
                         <div class="row mb-0">
@@ -31,8 +44,6 @@
                                 <button type="submit" class="btn btn-primary">
                                     Kirim
                                 </button>
-
-                                <a href="" style="margin-left: 20px;" data-bs-toggle="modal" data-bs-target="#exampleModal">Kirim OTP kembali</a>
                             </div>
                         </div>
                     </form>
@@ -42,30 +53,5 @@
     </div>
 </div>
 
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Kirim OTP</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            
-            <form method="POST" action="{{url('/postVerification')}}">
-                        @csrf
-            <div class="modal-body">
-                    <div class="mb-3">
-                        <label for="exampleInputEmail1" class="form-label">Alamat Email</label>
-                        <input type="email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-                    </div>
-            </div>
-            <div class="modal-footer">
-                <button type="submit" class="btn btn-primary">Kirim</button>
-            </div>
-            
-            </form>
-        </div>
-    </div>
-</div>
 
 @endsection
