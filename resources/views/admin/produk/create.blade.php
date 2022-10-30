@@ -64,8 +64,12 @@
                                           <div class="">
                                               <label class="mx-4 w-25" >Kategori</label>
                                               <select name="kategori_id" class="form-control mx-3" placeholder="Kategori disini" required>
-                                                <option value="1">elektronik</option>
-                                                <option value="2">aksesoris</option>
+                                                <option value="Smartphone">Smartphone</option>
+                                                <option value="Laptop">Laptop</option> 
+                                                <option value="Computer">Computer</option> 
+                                                <option value="Earphone / Headshet">Earphone / Headshet</option> 
+                                                <option value="Cable">Cable<option> 
+                                                <option value="Memory">Memory</option> 
                                               </select>
                                               @error('kategori')
                                               <small class="text-danger container">

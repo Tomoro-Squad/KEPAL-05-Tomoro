@@ -7,7 +7,7 @@ use App\Http\Controllers\ProdukController2;
 use App\Http\Controllers\loginController;
 use App\Http\Controllers\registrasiController;
 use App\Http\Controllers\berandaController;
-use App\Http\Controllers\pemesananController;
+use App\Http\Controllers\Pemesanan2Controller;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\dashboardPemesananController;
 use Illuminate\Support\Facades\Auth;
@@ -34,6 +34,8 @@ Route::get('/verification', [UserController::class, 'verification'])->name('veri
 
 Route::post('/postVerification', [UserController::class, 'postVerification']);
 
+Route::post('/postResend', [UserController::class, 'postResend']);
+
 Route::get('/profile', function() {
     return view('profile');
 });
@@ -44,12 +46,13 @@ Route::middleware(['admin'])->group(function () {
 
     Route::resource("/dashboard/produk",ProdukController::class);
 
+    Route::resource("/pemesanan",Pemesanan2Controller::class);
+
     Route::resource("/dashboard/produk/gambar",ProdukController::class);
 
     // Route::resource("/dashboard/keranjang",pemesananController::class);
 
     Route::resource("/dashboard/pemesanan",dashboardPemesananController::class);
-
 });
 
 
@@ -57,8 +60,8 @@ Route::get('/',[berandaController::class,'index']);
 
 Route::get('/produk/{produk}',[berandaController::class,'detail']);
 
-Route::resource("/keranjang",pemesananController::class)->middleware('auth');
+Route::resource("/keranjang",Pemesanan2Controller::class)->middleware('auth');
 
-Route::post("/keranjang/bayar/{id}", [pemesananController::class, 'bayar'])->middleware('auth');
+Route::post("/keranjang/bayar/{keranjang}", [Pemesanan2Controller::class, 'bayar'])->middleware('auth');
 
 Auth::routes();

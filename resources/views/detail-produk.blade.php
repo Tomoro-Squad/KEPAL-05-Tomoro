@@ -1,6 +1,7 @@
 
   <div class="container">
-    @include('template/header')
+    @include('template/header')   
+
     <br>
     <div class="card-body container">
         <h3 class="card-title">Detail Produk</h3><br>
@@ -65,16 +66,12 @@
                 <h4 class="text-main">Pemesanan</h4>
                 <div class="pesan border border-1">
                     <div class="p-3">
-                        <form action="/keranjang" method="post" enctype="multipart/form-data">
+                        <form action="/pemesanan" method="post" enctype="multipart/form-data">
                             @csrf
                             @auth
                             <div class="d-none">
-                                <input type="text" name="pnama" value="{{$produk['name']}}">
-                                <input type="text" name="user_nama" value="{{Auth::user()->username}}">
-                                <input type="number" name="pid" value="{{$produk->id}}">
-                                <input type="number" name="user_id" value="{{Auth::user()->id}}">
-                                <input type="number" name="harga" value="{{$produk['harga']}}">
-                                <input type="text" name="gambar" value="{{$produk['gambar']}}">
+                                <input type="text" name="produk_id" value="{{$produk['id']}}">
+                                <input type="text" name="user_id" value="{{Auth::user()->id}}">
                                 <input type="number" name="total" value="">
                                 <input type="number" name="bayar" value="">
                                 <input type="number" name="status" value="0">
@@ -83,8 +80,13 @@
                             <small>Jumlah : </small>
                             <input type="number" id="number" name="jumlah" min="1" value="1" max="{{$produk['jumlah']}}" required> <small>dari {{$produk['jumlah']}} tersisa </small><br>
                             @auth
+                            @if($produk->jumlah > 0)
                             <button class="tombol-detail  py-2 px-4 mt-4"><i class="fas fa-cart-plus"></i> Masukkan keranjang</button>
-                            @error('pid')
+                            @else
+                            <br>
+                            <i class="text-danger mt-2">Stok produk telah habis</i>
+                            @endif
+                            {{-- @error('pid')
                             <small>{{$message}}</small>
                             @enderror
                             @error('pnama')
@@ -113,7 +115,7 @@
                             @enderror
                             @error('gambar')
                             <small>{{$message}}</small>
-                            @enderror
+                            @enderror --}}
                             @else
                             <br>
                             <a href="/login" class="tombol-detail  py-2 px-4 mt-5"><i class="fas fa-cart-plus"></i> Masukkan keranjang</a>
@@ -128,6 +130,31 @@
         <br>
 </div>
     <br><br>
+
+    <style>
+        .toast-kerangjang{
+            position: absolute;
+            top: 40 ;
+            right: 40;
+
+        }
+    </style>
+
+    @if(session()->has('success'))
+    <div class="toast-kerangjang">
+        <div class="toast show bg-success top-0 end-0" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header bg-white">
+              <strong class="me-auto text-success"><i class="fas fa-check-circle"></i> Sukses</strong>
+              {{-- <small>11 mins ago</small> --}}
+              <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body">
+                <h6 class="text-white"><i class="fas fa-shopping-cart"></i> Berhasil ditambahkan ke keranjang</h6>
+            </div>
+        </div>
+    </div>
+    @endif
+
      @include('template.footer')
  
    </div>

@@ -6,52 +6,37 @@ use Illuminate\Http\Request;
 use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Http;
 use App\Models\Produk;
+use App\Models\Pemesanan;
+use Auth;
 
 class berandaController extends Controller
 {
     public function index(){
-        // $client = new Client();
-        // $response = $client->request('GET','http://localhost:9010/produk');
-        // $statusCode = $response->getStatusCode();
-        // $body = $response->getBody()->getContents();
 
-        // $data = json_decode($body, true);
+        $pemesanan = 0;
+        
+        if(Auth::check()){
+            $pemesanan = Pemesanan::where('user_id', '=', Auth::user()->id)->get();
+        }
 
-        // $client2 = new Client();
-        // $response2 = $client2->request('GET',"http://localhost:9010/pesanan");
-        // $statusCode2 = $response2->getStatusCode();
-        // $body2 = $response2->getBody()->getContents();
-
-        // $pesanan = json_decode($body2, true);
-
-        $data = Produk::all();
+        $data = Produk::where('deleted_at','=',NULL)->where('deleted_by','=',NULL)->get();
+        // return $data;
 
         return view('beranda',[
             'produk' => $data,
-            // 'pesanan'=>$pesanan
+             'pemesanan'=>$pemesanan
         ]);
     }
 
     public function detail(Produk $produk){
-        //   return $produk;
-        //   $client = new Client();
-        //   $response = $client->request('GET',"http://localhost:9010/produk/$id");
-        //   $statusCode = $response->getStatusCode();
-        //   $body = $response->getBody()->getContents();
-  
-        //   $produk = json_decode($body, true);
-
-        //   $client2 = new Client();
-        //   $response2 = $client2->request('GET',"http://localhost:9010/pesanan");
-        //   $statusCode2 = $response2->getStatusCode();
-        //   $body2 = $response2->getBody()->getContents();
-  
-        //   $pesanan = json_decode($body2, true);
-
+        
+        if(Auth::check()){
+            $pemesanan = Pemesanan::where('user_id', '=', Auth::user()->id)->get();
+        }
 
           return view('detail-produk',[
               'produk'=>$produk,
-            //   'pesanan'=>$pesanan
+              'pemesanan'=>$pemesanan
             ]);
     }
 }

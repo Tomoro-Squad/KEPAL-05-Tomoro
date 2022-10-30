@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Http;
+use App\Models\Pemesanan;
 
 class dashboardPemesananController extends Controller
 {
@@ -15,15 +16,17 @@ class dashboardPemesananController extends Controller
      */
     public function index()
     {
-        $client = new Client();
-        $response = $client->request('GET',"http://localhost:9010/pesanan");
-        $statusCode = $response->getStatusCode();
-        $body = $response->getBody()->getContents();
+        // $client = new Client();
+        // $response = $client->request('GET',"http://localhost:9010/pesanan");
+        // $statusCode = $response->getStatusCode();
+        // $body = $response->getBody()->getContents();
 
-        $pesanan = json_decode($body, true);
+        // $pesanan = json_decode($body, true);
+        $pemesanan  = Pemesanan::latest()->get();
+        // return $pemesanan;
 
         return view('admin.keranjang',[
-            'pesanan'=>$pesanan,
+            'pesanan'=>$pemesanan,
         ]);
     }
 

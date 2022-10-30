@@ -15,7 +15,7 @@ class ProdukController extends Controller
      */
     public function index()
     {
-        $data = Produk::where('deleted_at','=',Null)->get();
+        $data = Produk::where('deleted_at','=',NULL)->where('deleted_by','=',NULL)->get();
         // return $data;
 
         return view('admin.product',[
@@ -88,7 +88,12 @@ class ProdukController extends Controller
     public function show(Produk $produk)
     {
 
-        // $produk = Produk::where('deleted_at',NULL)->latest();
+        $produk = Produk::where('id',$produk->id)->first();
+        // return $produk['name'];
+
+        if($produk->deleted_at != NULL || $produk->deleted_by != NULL){
+            return abort(404);
+        }
 
         return view('admin.produk.detail', [
             'produk' => $produk
@@ -117,15 +122,25 @@ class ProdukController extends Controller
      */
     public function update(Request $request, Produk $produk)
     {   
-        $data = [
-            'name' => 'required',
-            'kategori_id' => 'required',
-            'harga' => 'required',
-            'detail' => 'required',
-            'jumlah' => 'required'
-        ];
 
-        $validasi = $request->validate($data);
+        // return $request;
+
+        $data = $this->validate($request, [
+            'name' => 'required|string|max:255',
+            'harga' => 'required',
+            'kategori_id' => 'required',
+            'detail' => 'required|string|max:855',
+            'jumlah' => 'required',
+        ],[
+            'name.required' => 'Nama produk harus diisi!',
+            'name.max' => 'Nama produk maksimal 255 karakter',
+            'harga.max' => 'Harga produk maksimal 255 karakter',
+            'detail.required' => 'Detail produk harus diisi',
+            'jumlah.required' => 'Jumlah produk harus diisi',
+            'kategori_id.required' => 'Kategori produk harus diisi',
+        ]);
+
+        // $validasi = $request->validate($data);
 
         Produk::where('id', $produk->id)->update($data);
 
@@ -138,8 +153,15 @@ class ProdukController extends Controller
      * @param  \App\Models\Produk  $produk
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Produk $produk)
+    public function destroy(Request $request, Produk $produk)
     {
-        //
+        $data = $this->validate($request, [
+            'deleted_at' => 'required',
+            'deleted_by' => 'required'
+        ]);
+
+        Produk::where('id', $produk->id)->update($data);
+
+        return redirect('/dashboard/produk')->with('success','Produk berhasil dihapus');
     }
 }

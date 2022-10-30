@@ -50,7 +50,7 @@
                                         <thead>
                                             <tr>
                                                 <th>No</th>
-                                                <th>User</th>
+                                                <th>Pembeli</th>
                                                 <th>Produk</th>
                                                 <th>Harga</th>
                                                 <th>Jumlah</th>
@@ -61,14 +61,15 @@
                                             </tr>
                                         </thead>
                                         <tbody>
+                                            {{-- @dd($pesanan) --}}
                                             @foreach ($pesanan as $pes)
                                             <tr>
                                                 <td>{{$loop->iteration}}</td>
-                                                <td>{{$pes['user_nama']}}</td>
-                                                <td>{{$pes['pnama']}}</td>
-                                                <td>{{$pes['harga']}}</td>
-                                                <td>{{$pes['jumlah']}}</td>
-                                                <td>{{$pes['total']}}</td>
+                                                <td>{{$pes->user->name}}</td>
+                                                <td>{{$pes->produk->name}}</td>
+                                                <td>{{$pes->produk->harga}}</td>
+                                                <td>{{$pes->jumlah}}</td>
+                                                <td>{{$pes->total}}</td>
                                                 <td>
                                                     @if ($pes['status'] != 0)
                                                         <small class="text-success fw-bold"><i class="fas fa-check-square"></i> Sudah dibayar</small>
