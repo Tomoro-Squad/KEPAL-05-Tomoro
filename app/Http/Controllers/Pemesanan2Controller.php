@@ -6,6 +6,7 @@ use App\Models\Pemesanan;
 use App\Models\Produk;
 use Illuminate\Http\Request;
 use Auth;
+use App\Helpers\DiffieHellman;
 
 class Pemesanan2Controller extends Controller
 {
@@ -43,6 +44,12 @@ class Pemesanan2Controller extends Controller
 
         if($pesan->total > $request->bayar){
             return redirect("/keranjang")->with('failed','Saldo anda tidak cukup');
+        }
+        $server = (int)$keranjang->produk_id + (int)$keranjang->user_id;
+        $key = DiffieHellman::diffie_hellman(Auth::user()->id,$server);
+        // return $key. "  pisah  " .$keranjang->kode;
+        if($key != $keranjang->kode){
+            return redirect()->back()->with('failed', 'terjadi kesalahan saaat transaksi');
         }
 
         if($request->file('struk')){
@@ -87,13 +94,14 @@ class Pemesanan2Controller extends Controller
             'bayar' => 'nullable',
             'status' => 'required',
             'jumlah' => 'required',
+            'kode' => 'nullable',
         ]);
 
         $produk = Produk::where('id',$data['produk_id'])->first();
 
       
-
-        // return $data['struk']
+        $server = (int)$data['produk_id'] + (int)$data['user_id'];
+        $data['kode'] = DiffieHellman::diffie_hellman(Auth::user()->id,$server);
 
         try{
             $data['total'] = $produk->harga * $data['jumlah'];

@@ -18,6 +18,7 @@ return new class extends Migration
             $table->foreignId('user_id');
             $table->foreignId('produk_id');
             $table->integer('jumlah');
+            $table->integer('kode')->nullable();
             $table->integer('total')->nullable();
             $table->integer('bayar')->nullable();
             $table->string('struk')->nullable();
