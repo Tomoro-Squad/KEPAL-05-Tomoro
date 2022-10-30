@@ -16,21 +16,21 @@ class pemesananController extends Controller
     public function index()
     {
         $client = new Client();
-        $response = $client->request('GET',"http://localhost:9010/pesanan");
+        $response = $client->request('GET', "http://localhost:3307/pesanan");
         $statusCode = $response->getStatusCode();
         $body = $response->getBody()->getContents();
 
         $pesanan = json_decode($body, true);
 
         $client2 = new Client();
-        $response2 = $client2->request('GET','http://localhost:9010/produk');
+        $response2 = $client2->request('GET', 'http://localhost:3307/produk');
         $statusCode2 = $response2->getStatusCode();
         $body2 = $response2->getBody()->getContents();
 
         $data = json_decode($body2, true);
 
-        return view('keranjang',[
-            'pesanan'=>$pesanan,
+        return view('keranjang', [
+            'pesanan' => $pesanan,
             'produk' => $data
         ]);
     }
@@ -42,7 +42,6 @@ class pemesananController extends Controller
      */
     public function create()
     {
-    
     }
 
 
@@ -61,13 +60,13 @@ class pemesananController extends Controller
             'gambar' => 'nullable'
         ]);
 
-    
-       if($request->total > $request->bayar){
-            return redirect("/keranjang")->with('failed','Saldo anda tidak cukup');
-       }
-      
-   
-        $response = Http::put("http://localhost:9010/pesanan/$id",[
+
+        if ($request->total > $request->bayar) {
+            return redirect("/keranjang")->with('failed', 'Saldo anda tidak cukup');
+        }
+
+
+        $response = Http::put("http://localhost:3307/pesanan/$id", [
             'pid' => (int)$request->pid,
             'pnama' => $request->pnama,
             'user_id' => (int)$request->user_id,
@@ -82,7 +81,7 @@ class pemesananController extends Controller
         // return $response;
         // return $response;
 
-        return redirect("/keranjang")->with('success','Pembayaran telah berhasil');
+        return redirect("/keranjang")->with('success', 'Pembayaran telah berhasil');
     }
 
     /**
@@ -123,8 +122,8 @@ class pemesananController extends Controller
         // ];
 
         // return $response;
-   
-        $response = Http::post('http://localhost:9010/pesanan',[
+
+        $response = Http::post('http://localhost:3307/pesanan', [
             'pid' => (int)$request->pid,
             'pnama' => $request->pnama,
             'user_id' => (int)$request->user_id,
@@ -139,7 +138,7 @@ class pemesananController extends Controller
 
         // return $response;
 
-        return redirect("/keranjang")->with('success','Pesanan telah ditambahkan');
+        return redirect("/keranjang")->with('success', 'Pesanan telah ditambahkan');
     }
 
     /**
@@ -186,11 +185,11 @@ class pemesananController extends Controller
             'gambar' => 'nullable'
         ]);
 
-    
+
         $hargaTotal = $request->jumlah * $request->harga;
-      
-   
-        $response = Http::put("http://localhost:9010/pesanan/$id",[
+
+
+        $response = Http::put("http://localhost:3307/pesanan/$id", [
             'pid' => (int)$request->pid,
             'pnama' => $request->pnama,
             'user_id' => (int)$request->user_id,
@@ -205,7 +204,7 @@ class pemesananController extends Controller
         // return $response;
         // return $response;
 
-        return redirect("/keranjang")->with('success','Pesanan telah diubah');
+        return redirect("/keranjang")->with('success', 'Pesanan telah diubah');
     }
 
     /**
@@ -217,15 +216,15 @@ class pemesananController extends Controller
     public function destroy($id)
     {
         $client = new Client();
-        $response = $client->request('delete',"http://localhost:9010/pesanan/$id");
-      //   $statusCode = $response->getStatusCode();
-      //   $body = $response->getBody()->getContents();
+        $response = $client->request('delete', "http://localhost:3307/pesanan/$id");
+        //   $statusCode = $response->getStatusCode();
+        //   $body = $response->getBody()->getContents();
 
-      //   $produk = json_decode($body, true);
+        //   $produk = json_decode($body, true);
         // return $produk;
         // return $data;
 
         // return view('admin.produk.lihat-produk',['produk' => $data]);
-        return redirect('keranjang')->with('success','Pesanan telah dibatalkan');
+        return redirect('keranjang')->with('success', 'Pesanan telah dibatalkan');
     }
 }
