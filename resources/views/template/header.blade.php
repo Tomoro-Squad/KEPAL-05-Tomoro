@@ -51,16 +51,9 @@
               @php
                 $i = 0;
               @endphp
-              {{-- @foreach ($pesanan as $pes)
-              @if (Auth::user()->id == $pes['user_id'] && $pes['status'] == 0)
-                @php
-                  $i++;
-                @endphp
-              @endif
-              @endforeach --}}
-              {{-- @if (Auth::user()->id == $pes['user_id'] && $pes['status'] == 0)
-              <span class="bg-danger rounded-circle text-white position-absolute px-1" style="margin-left: -25px;"><small class="text-sm" style="font-size:10px">{{$i}}</small></span>
-              @endif --}}
+             @if ($pemesanan != NULL && $pemesanan->count() > 0)
+             <span class="bg-danger rounded-circle text-white position-absolute px-1" style="margin-left: -25px;"><small class="text-sm" style="font-size:10px">{{$pemesanan->count()}}</small></span>
+             @endif  
             </a>
           </li>
         </ul>

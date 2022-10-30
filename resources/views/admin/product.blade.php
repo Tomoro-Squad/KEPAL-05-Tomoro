@@ -74,14 +74,37 @@
                                                     <div class="d-flex">
                                                         <a href="/dashboard/produk/{{$pro['id']}}" class="btn btn-info btn-sm text-white mx-1"><i class="fas fa-eye"></i> Lihat</a>
                                                         <a href="/dashboard/produk/{{$pro['id']}}/edit" class="btn btn-warning btn-sm  mx-1"><i class="far fa-edit"></i> Edit</a>
-                                                        <form action="/dashboard/produk/{{$pro['ID']}}" method="post" >
-                                                            @method('delete')
-                                                            @csrf
-                                                            <button type="submit" class="btn btn-danger btn-sm text-white mx-1"><i class=" fas fa-trash"></i> Hapus</button>
-                                                        </form>
+                                                        <button type="submit" class="btn btn-danger btn-sm text-white mx-1" data-bs-toggle="modal" data-bs-target="#produk{{$pro->id}}"><i class=" fas fa-trash"></i> Hapus</button>
                                                     </div>
                                                 </td>
                                             </tr>
+
+                                            <!-- Modal -->
+                                            <div class="modal fade rounded" id="produk{{$pro->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog rounded">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                    {{-- <h1 class="modal-title fs-5" id="exampleModalLabel">Konfirmasi</h1> --}}
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <h4 class="text-center">Apakah anda yakin ingin menghapus produk ini?</h4>
+                                                    </div>
+                                                    <div class="d-flex p-2 justify-content-center">
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>&nbsp;&nbsp;
+                                                    <form action="/dashboard/produk/{{$pro['id']}}" method="post" >
+                                                        @method('delete')
+                                                        @csrf
+                                                        <input type="hidden" name="deleted_at" value="{{\Carbon\Carbon::now()}}">
+                                                        <input type="hidden" name="deleted_by" value="{{Auth::user()->id}}">
+                                                        <button type="submit" class="btn btn-danger text-white"><i class=" fas fa-trash"></i> Hapus</button>
+                                                    </form>
+                                                    </div>
+                                                    <br><br>
+                                                </div>
+                                                </div>
+                                            </div>
+
                                             @endforeach
 
                                             {{-- <form action="/dashboard/beritas/{{$b->slug}}" method="post" >

@@ -114,7 +114,14 @@
                                       <div class="form-group mt-3">
                                           <div class="">
                                               <label class="mx-4 w-25" >Kategori</label>
-                                              <input type="text" name="kategori_id" class="form-control mx-3" placeholder="Kategori disini" value="{{$produk['kategori']}}" required>
+                                              <select name="kategori_id" class="form-control mx-3" placeholder="Kategori disini" required>
+                                                <option value="Smartphone" @if('Smartphone') selected  @endif>Smartphone</option>
+                                                <option value="Laptop" @if('Laptop') selected  @endif>Laptop</option> 
+                                                <option value="Computer" @if('Computer') selected  @endif>Computer</option> 
+                                                <option value="Earphone / Headshet" @if('Earphone / Headshet') selected  @endif>Earphone / Headshet</option> 
+                                                <option value="Cable" @if('Cable') selected  @endif>Cable<option> 
+                                                <option value="Memory" @if('Memory') selected  @endif>Memory</option> 
+                                              </select>
                                               @error('kategori')
                                               <small class="text-danger container">
                                                  {{$message}}
