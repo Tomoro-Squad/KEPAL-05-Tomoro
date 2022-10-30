@@ -47,47 +47,53 @@ class LoginController extends Controller
     {
         $request->validate([
             $this->username() => [
-                'required', 'string', 
-                Rule::exists('users')->where(function ($query){
-                    $query->where('isVerified',true);
+                'required', 'string',
+                Rule::exists('users')->where(function ($query) {
+                    $query->where('isVerified', true);
                 })
-  
+
             ], 'password' => 'required|string',
+
+
         ], [
-            $this->username(). '.exists' => 'Email Anda belum Aktif, Silahkan Aktivasi terlebih Dahulu'
+            $this->username() . '.exists' => 'Email Anda belum Aktif, Silahkan Aktivasi terlebih Dahulu'
         ]);
     }
 
-    public function loginUser(Request $request){
+    public function loginUser(Request $request)
+    {
 
         $credentials = $request->validate([
             $this->username() => [
-                'required', 'string', 
-                Rule::exists('users')->where(function ($query){
-                    $query->where('isVerified',true);
+                'required', 'string',
+                Rule::exists('users')->where(function ($query) {
+                    $query->where('isVerified', true);
                 })
-  
+
             ], 'password' => 'required|string',
+            'g-recaptcha-response' => 'required|captcha',
+
+
         ], [
-            $this->username(). '.exists' => 'Email Anda belum Aktif, Silahkan Aktivasi terlebih Dahulu'
+            $this->username() . '.exists' => 'Email Anda belum Aktif, Silahkan Aktivasi terlebih Dahulu'
         ]);
 
         $user = User::where('email', $credentials['email'])->first();
 
-        if(empty($user)){
-            return back()->with('loginError','Username atau password anda salah!');
+        if (empty($user)) {
+            return back()->with('loginError', 'Username atau password anda salah!');
         }
 
         $password =  HashSalt::hash_salt($credentials['password']);
         // var_dump($password);
-       
 
-        if($password == $user->password){
+
+        if ($password == $user->password) {
             Auth::loginUsingId($user->id, TRUE);
             $request->session()->regenerate();
             return redirect()->intended('/');
         }
 
-        return back()->with('loginError','Username atau password anda salah!');
+        return back()->with('loginError', 'Username atau password anda salah!');
     }
 }

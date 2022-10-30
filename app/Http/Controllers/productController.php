@@ -16,13 +16,13 @@ class productController extends Controller
     public function index()
     {
         $client = new Client();
-        $response = $client->request('GET','http://localhost:9010/produk');
+        $response = $client->request('GET', 'http://localhost:3307/produk');
         $statusCode = $response->getStatusCode();
         $body = $response->getBody()->getContents();
 
         $data = json_decode($body, true);
 
-        return view('admin.product',['produk' => $data]);
+        return view('admin.product', ['produk' => $data]);
     }
 
     /**
@@ -42,7 +42,7 @@ class productController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {   
+    {
 
         $request->validate([
             'nama' => 'required',
@@ -52,14 +52,14 @@ class productController extends Controller
             'gambar' => 'required',
             'detail' => 'required'
         ]);
-      
+
         // return $request;
 
         $foto = $request->file('gambar');
-        $NamaFoto = time().'.'.$foto->extension();
+        $NamaFoto = time() . '.' . $foto->extension();
         $foto->move(public_path('produk'), $NamaFoto);
-   
-        $response = Http::post('http://localhost:9010/produk',[
+
+        $response = Http::post('http://localhost:3307/produk', [
             'nama' => $request->nama,
             'kategori' => $request->kategori,
             'harga' => (int)$request->harga,
@@ -68,8 +68,7 @@ class productController extends Controller
             'detail' => $request->detail
         ]);
 
-        return redirect("/dashboard/produk")->with('success','Produk telah ditambahkan');
-
+        return redirect("/dashboard/produk")->with('success', 'Produk telah ditambahkan');
     }
 
     /**
@@ -83,7 +82,7 @@ class productController extends Controller
 
         // return $id;
         $client = new Client();
-        $response = $client->request('GET',"http://localhost:9010/produk/$id");
+        $response = $client->request('GET', "http://localhost:3307/produk/$id");
         $statusCode = $response->getStatusCode();
         $body = $response->getBody()->getContents();
 
@@ -92,7 +91,7 @@ class productController extends Controller
         // return $data;
 
         // return view('admin.produk.lihat-produk',['produk' => $data]);
-        return view('admin.produk.lihat-produk',['produk'=>$produk]);
+        return view('admin.produk.lihat-produk', ['produk' => $produk]);
     }
 
     /**
@@ -103,18 +102,18 @@ class productController extends Controller
      */
     public function edit($id)
     {
-          // return $id;
-          $client = new Client();
-          $response = $client->request('GET',"http://localhost:9010/produk/$id");
-          $statusCode = $response->getStatusCode();
-          $body = $response->getBody()->getContents();
-  
-          $produk = json_decode($body, true);
-          // return $produk;
-          // return $data;
-  
-          // return view('admin.produk.lihat-produk',['produk' => $data]);
-          return view('admin.produk.ubah-produk',['produk'=>$produk]);
+        // return $id;
+        $client = new Client();
+        $response = $client->request('GET', "http://localhost:3307/produk/$id");
+        $statusCode = $response->getStatusCode();
+        $body = $response->getBody()->getContents();
+
+        $produk = json_decode($body, true);
+        // return $produk;
+        // return $data;
+
+        // return view('admin.produk.lihat-produk',['produk' => $data]);
+        return view('admin.produk.ubah-produk', ['produk' => $produk]);
     }
 
     /**
@@ -135,14 +134,14 @@ class productController extends Controller
         ]);
 
         // return $id;
-      
+
         // return $request;
-        if($request->gambar != null){
+        if ($request->gambar != null) {
             $foto = $request->file('gambar');
-            $NamaFoto = time().'.'.$foto->extension();
+            $NamaFoto = time() . '.' . $foto->extension();
             $foto->move(public_path('produk'), $NamaFoto);
 
-            $response = Http::put('http://localhost:9010/produk/'.$id,[
+            $response = Http::put('http://localhost:3307/produk/' . $id, [
                 'nama' => $request->nama,
                 'kategori' => $request->kategori,
                 'harga' => (int)$request->harga,
@@ -150,15 +149,15 @@ class productController extends Controller
                 'gambar' => $NamaFoto,
                 'detail' => $request->detail
             ]);
-    
 
-        //    return $response;
 
-            return redirect("/dashboard/produk")->with('success','Produk telah ditambahkan');
+            //    return $response;
+
+            return redirect("/dashboard/produk")->with('success', 'Produk telah ditambahkan');
         }
-       
-   
-        $response = Http::put('http://localhost:9010/produk/'.$id,[
+
+
+        $response = Http::put('http://localhost:3307/produk/' . $id, [
             'nama' => $request->nama,
             'kategori' => $request->kategori,
             'harga' => (int)$request->harga,
@@ -168,8 +167,7 @@ class productController extends Controller
 
         // return $response;
 
-        return redirect("/dashboard/produk")->with('success','Produk telah ditambahkan');
-    
+        return redirect("/dashboard/produk")->with('success', 'Produk telah ditambahkan');
     }
 
     /**
@@ -181,15 +179,15 @@ class productController extends Controller
     public function destroy($id)
     {
         $client = new Client();
-          $response = $client->request('delete',"http://localhost:9010/produk/$id");
+        $response = $client->request('delete', "http://localhost:3307/produk/$id");
         //   $statusCode = $response->getStatusCode();
         //   $body = $response->getBody()->getContents();
-  
+
         //   $produk = json_decode($body, true);
-          // return $produk;
-          // return $data;
-  
-          // return view('admin.produk.lihat-produk',['produk' => $data]);
-          return redirect('/dashboard/produk');
+        // return $produk;
+        // return $data;
+
+        // return view('admin.produk.lihat-produk',['produk' => $data]);
+        return redirect('/dashboard/produk');
     }
 }
